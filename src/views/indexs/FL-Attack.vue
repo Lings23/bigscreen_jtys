@@ -8,6 +8,7 @@
           <span class="city">目标：{{ item.target }}</span>
           <span class="method">方式：{{ item.method }}</span>
           <span class="system">系统：{{ item.system }}</span>
+          <span class="organization">单位：{{ item.organization }}</span>
         </li>
       </ul>
     </vue-seamless-scroll>
@@ -50,17 +51,49 @@ export default {
     },
     async updateAttackList(){
       try {
-        const res = await this.$authFetch('/api/stat/attack');
-        const data = await res.json();
+        // 1. 获取攻击数据
+        const attackRes = await this.$authFetch('/api/stat/attack');
+        const attackData = await attackRes.json();
         const isWorldMap = this.mapName === 'world';
-        this.attackList = (data || []).filter(item => isWorldMap ? item.sourceIsDomestic === false : item.sourceIsDomestic === true)
-          .map(item => ({
-            source: item.sourceLocationName,
-            target: item.targetLocationName,
-            method: item.attackMethod,
-            system: item.targetSystem
-          }));
+        const filteredAttacks = (attackData || []).filter(item => 
+          isWorldMap ? item.sourceIsDomestic === false : item.sourceIsDomestic === true
+        );
+
+        // 2. 获取所有目标IP
+        const targetIps = [...new Set(filteredAttacks.map(item => item.targetIp))];
+
+        // 3. 批量查询资产信息
+        const assetPromises = targetIps.map(async (ip) => {
+          try {
+            const assetRes = await this.$authFetch(`/api/asset-list/search?assetIp=${ip}`);
+            const assetData = await assetRes.json();
+            return { ip, asset: assetData[0] || null };
+          } catch (e) {
+            return { ip, asset: null };
+          }
+        });
+
+        const assetResults = await Promise.all(assetPromises);
+        const assetMap = new Map();
+        assetResults.forEach(({ ip, asset }) => {
+          if (asset) {
+            assetMap.set(ip, asset);
+          }
+        });
+
+        // 4. 组合数据
+        this.attackList = filteredAttacks.map(item => {
+          const asset = assetMap.get(item.targetIp);
+          return {
+            source: item.sourceLocationName || '未知',
+            target: item.targetLocationName || '未知',
+            method: item.attackMethod || '未知',
+            system: asset ? (asset.systemName || '未知') : '未知',
+            organization: asset ? (asset.organizationName || '未知') : '未知'
+          };
+        });
       } catch (e) {
+        console.error('获取攻击数据失败:', e);
         this.attackList = [];
       }
     }
@@ -114,9 +147,14 @@ export default {
 }
 
 .system {
-  flex: 1;
+  width: 120px;
   color: #00ff99;
-  text-align: left;
-  padding-left: 10px;
+  text-align: center;
+}
+
+.organization {
+  width: 100px;
+  color: #ff6b6b;
+  text-align: center;
 }
 </style>
