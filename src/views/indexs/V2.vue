@@ -144,7 +144,7 @@ export default {
           {
             name: '漏洞等级',
             type: 'pie',
-            radius: ['35%', '60%'],
+            radius: ['30%', '55%'],
             startAngle: 100,
             avoidLabelOverlap: false,
             label: {
@@ -153,19 +153,19 @@ export default {
                   `{value|数量：${params.value}}\n{percent|占比：${params.percent}%}`,
               rich: {
                 value: {
-                  fontSize: 11,
+                  fontSize: 10,
                   color: '#00ffff'
                 },
                 percent: {
-                  fontSize: 11,
+                  fontSize: 10,
                   color: '#ffcc00'
                 }
               }
             },
             labelLine: {
               show: true,
-              length: 12,
-              length2: 8
+              length: 10,
+              length2: 6
             },
             data: [
               { value: this.currentData.high, name: '高危漏洞' },
@@ -205,8 +205,8 @@ export default {
           {
             name: '修复情况',
             type: 'pie',
-            radius: ['35%', '60%'],
-            startAngle: 105,
+            radius: ['30%', '55%'],
+            startAngle: 65,
             avoidLabelOverlap: false,
             label: {
               show: true,
@@ -214,19 +214,19 @@ export default {
                   `{value|数量：${params.value}}\n{percent|占比：${params.percent}%}`,
               rich: {
                 value: {
-                  fontSize: 11,
+                  fontSize: 10,
                   color: '#00ffff'
                 },
                 percent: {
-                  fontSize: 11,
+                  fontSize: 10,
                   color: '#ffcc00'
                 }
               }
             },
             labelLine: {
               show: true,
-              length: 10,
-              length2: 10
+              length: 8,
+              length2: 6
             },
             data: [
               { value: this.lastData.fixed, name: '已修复' },
@@ -262,8 +262,8 @@ export default {
 }
 
 .chart {
-  width: 48%;
-  height: 220px;
+  width: 50%;
+  height: 210px;
   padding: 2px;
   overflow: visible;
   box-sizing: content-box;

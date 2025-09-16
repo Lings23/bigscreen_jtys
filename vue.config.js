@@ -31,7 +31,7 @@ module.exports = {
   filenameHashing: true,
   lintOnSave: false,
   runtimeCompiler: false,
-  transpileDependencies: [],
+  transpileDependencies: ['vue-echarts', 'resize-detector'],
   productionSourceMap: false,
   css: {
     extract: process.env.NODE_ENV === "production",

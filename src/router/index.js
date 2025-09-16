@@ -23,7 +23,20 @@ const routes = [  {
       path: '/index',
       name: 'index',
       component: () => import(/* webpackChunkName: "LSD.bighome" */ '../views/indexs/index2.vue'),
-    }
+      meta: { title: '交通运输网络安全评估及监测预警信息系统' }
+    },
+    {
+      path: '/screen-a',
+      name: 'screen-a',
+      component: () => import(/* webpackChunkName: "ScreenA" */ '../views/screens/ScreenA.vue'),
+      meta: { title: '交通态势-大屏A' }
+    },
+    {
+      path: '/screen-b',
+      name: 'screen-b',
+      component: () => import(/* webpackChunkName: "ScreenB" */ '../views/screens/ScreenB.vue'),
+      meta: { title: '安全监测-大屏B' }
+    },
   ]
 }, 
 ];

@@ -23,7 +23,7 @@
           <div class="guang"></div>
           <div class="d-flex jc-center">
             <div class="title">
-              <span class="title-text">交通运输网络安全评估及监测预警信息系统</span>
+              <span class="title-text">{{ pageTitle }}</span>
             </div>
           </div>
           <div class="timers">
@@ -37,7 +37,9 @@
         </div>
         <!-- 头部 e-->
         <!-- 内容  s-->
-        <router-view></router-view>
+        <keep-alive>
+          <router-view />
+        </keep-alive>
         <!-- 内容 e -->
       </div>
     </div>
@@ -67,7 +69,13 @@ export default {
       return msg || 0;
     },
   },
-  computed: {},
+  computed: {
+    pageTitle() {
+      const rt = this.$route;
+      const metaTitle = (rt && rt.meta && rt.meta.title) || '';
+      return metaTitle || '交通运输网络安全评估及监测预警信息系统';
+    }
+  },
   created() {},
   mounted() {
     this.timeFn();
