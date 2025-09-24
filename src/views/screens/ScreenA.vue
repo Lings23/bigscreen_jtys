@@ -21,7 +21,7 @@
 /* 页面整体容器：纵向 flex，占满视口高度 */
 .screen-container {
   width: 100%;
-  height: 150vh; /* 改为100vh，避免高度过大导致滚动 */
+  height: 90%; /* 改为100vh，避免高度过大导致滚动 */
   background-color: #0a1026;
   padding: 0;
   box-sizing: border-box;
