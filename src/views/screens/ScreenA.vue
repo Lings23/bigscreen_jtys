@@ -75,7 +75,7 @@ html, body {
 
 .screen-container {
   width: 100%;
-  height: 150vh; /* 使用视口高度代替百分比，确保占满屏幕 */
+  height: 95%; /* 使用视口高度代替百分比，确保占满屏幕 */
   background-color: #0a0f28;
   padding: 0;
   margin: 0;
