@@ -1,13 +1,13 @@
 <template>
   <div class="screen-container">
-    <!-- 新增头部区域（如果需要显示标题） -->
-  
-    
     <!-- 主体布局：左侧 + 右侧模块 -->
     <div class="main-layout">
       <div class="left-column">
         <div class="module module-large"></div>
-        <div class="module module-medium"></div>
+        <div class="module module-medium">
+          <!-- 新增攻击统计组件 -->
+          <AttackStats />
+        </div>
       </div>
       
       <!-- 右侧列 -->
@@ -30,17 +30,19 @@
 
 
 <script>
-// 导入原有组件（路径按项目实际情况调整）
+// 导入原有组件
 import ReBaoEventList from '../indexs/ReBaoEventList.vue';
-// 导入季报组件（Vue 2.7 支持此导入方式）
-import QuarterlyReport from '../indexs/QuarterlyReport.vue'; 
+import QuarterlyReport from '../indexs/QuarterlyReport.vue';
+// 导入新增的攻击统计组件
+import AttackStats from '../indexs/AttackStats.vue';
 import axios from 'axios';
 
 
 export default {
   components: {
     ReBaoEventList,
-    QuarterlyReport
+    QuarterlyReport,
+    AttackStats  // 注册新组件
   },
   created() {
     this.initMockApis();
@@ -51,8 +53,6 @@ export default {
   methods: {
     initMockApis() {
       // 原有重保事件接口
-      
-
       // 原有统计接口
       mock.onGet('/api/dashboard/statistics').reply(200, {
         code: 200,
@@ -65,7 +65,7 @@ export default {
 </script>
 
 <style scoped>
-/* 关键修改：确保高度正确继承 */
+/* 原有样式保持不变 */
 html, body {
   width: 100%;
   height: 100%;
@@ -75,15 +75,13 @@ html, body {
 
 .screen-container {
   width: 100%;
-  height: 95%; /* 使用视口高度代替百分比，确保占满屏幕 */
+  height: 150vh;
   background-color: #0a0f28;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  /* 移除 overflow: hidden，避免内容被隐藏 */
-  
   background-image: radial-gradient(circle, rgba(30, 80, 188, 0.1) 1px, transparent 1px);
   background-size: 30px 30px;
 }
@@ -105,7 +103,7 @@ html, body {
   gap: 15px;
   padding: 15px;
   box-sizing: border-box;
-  overflow: auto; /* 内容超出时显示滚动条 */
+  overflow: auto;
 }
 
 .left-column {
@@ -132,16 +130,15 @@ html, body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: 0; /* 解决 flex 子元素高度压缩问题 */
+  min-height: 0;
 }
 
 /* 左侧模块尺寸 */
 .module-large { flex: 6; }
 .module-medium { flex: 4; }
 
-/* 右侧三个模块的高度控制（可根据需要调整数值） */
-.module-right-1 { flex: 1; }  /* 第一个模块高度占比 */
-.module-right-2 { flex: 2; }  /* 第二个模块高度占比 */
-.module-right-3 { flex: 3; }  /* 第三个模块高度占比 */
+/* 右侧三个模块的高度控制 */
+.module-right-1 { flex: 1; }
+.module-right-2 { flex: 2; }
+.module-right-3 { flex: 3; }
 </style>
-    
