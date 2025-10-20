@@ -231,3 +231,110 @@ function parameteUrl(url) {
     }
     return {};
 }
+
+// 重保事件
+function rebangEventList() {
+    const mockData = Mock.mock({
+        'eventList|8': [
+            {
+                'name': '@ctitle(6, 12) 重保活动',
+                'unitCount|5-30': 1,
+                'startTime': '@date("yyyy-MM-dd")',
+                'endTime': function() {
+                    const start = new Date(this.startTime);
+                    const end = new Date(start);
+                    end.setDate(start.getDate() + Mock.Random.integer(7, 30));
+                    return end.toISOString().split('T')[0];
+                }
+            }
+        ]
+    });
+
+    return {
+        success: true,
+        data: mockData.eventList
+    };
+}
+
+Mock.mock(new RegExp('rebang/eventList'), 'get', rebangEventList)
+
+// 信息安全季报统计（新增接口）
+function quarterlySecurityReport(options) {
+  // 获取请求中的年份参数（如?year=2025）
+  const params = parameteUrl(options.url);
+  const targetYear = params.year || 2025; // 默认返回2025年数据
+
+  // 生成对应年份的季度数据，保持与组件原格式一致
+  const reportData = Mock.mock({
+    success: true,
+    data: {
+      季度: ['Q1', 'Q2', 'Q3', 'Q4'],
+      // 信息安全检查数量：按年份递增，每季度波动
+      '信息安全检查数量|4': [
+        () => Mock.Random.integer(
+          targetYear === 2023 ? 10 : (targetYear === 2024 ? 15 : 18),
+          targetYear === 2023 ? 20 : (targetYear === 2024 ? 25 : 30)
+        )
+      ],
+      // 信息安全培训数量：同检查数量递增逻辑
+      '信息安全培训数量|4': [
+        () => Mock.Random.integer(
+          targetYear === 2023 ? 8 : (targetYear === 2024 ? 10 : 12),
+          targetYear === 2023 ? 15 : (targetYear === 2024 ? 18 : 22)
+        )
+      ],
+      // 信息系统建设整改：同递增逻辑
+      '信息系统建设整改|4': [
+        () => Mock.Random.integer(
+          targetYear === 2023 ? 5 : (targetYear === 2024 ? 7 : 9),
+          targetYear === 2023 ? 10 : (targetYear === 2024 ? 12 : 15)
+        )
+      ]
+    }
+  });
+
+  return reportData;
+}
+
+// 匹配“quarterlySecurityReport”相关的GET请求
+Mock.mock(new RegExp('/quarterlySecurityReport'), 'get', quarterlySecurityReport);
+
+// 当月网络攻击类型分布
+function monthlyAttackStats() {
+  const attackTypes = [
+    'SQL注入', 
+    'XSS攻击', 
+    'DDoS攻击', 
+    '暴力破解', 
+    '恶意代码'
+  ];
+  
+  // 生成随机攻击数量
+  const counts = attackTypes.map(() => Mock.Random.integer(50, 500));
+  
+  return {
+    success: true,
+    data: {
+      types: attackTypes,
+      counts: counts
+    }
+  };
+}
+
+Mock.mock(new RegExp('/api/attack/monthly'), 'get', monthlyAttackStats);
+
+// 当年网络攻击趋势
+function yearlyAttackStats() {
+  const months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+  const counts = months.map(() => Mock.Random.integer(300, 2000));
+  
+  return {
+    success: true,
+    data: {
+      months: months,
+      counts: counts
+    }
+  };
+}
+
+Mock.mock(new RegExp('/api/attack/yearly'), 'get', yearlyAttackStats);
