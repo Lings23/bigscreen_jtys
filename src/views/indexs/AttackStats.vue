@@ -1,34 +1,27 @@
 <template>
-  <item-wrap :title="'恶意IP攻击列表'">
-    <div class="attack-stats-container">
-      <div class="chart-wrapper pie-chart">
-        <h3 class="chart-title">网络          网络攻击监测状况-月统计饼图
-        </h3>
-        <div class="chart-container">
-          <canvas id="monthlyPieChart"></canvas>
-        </div>
-      </div>
-      <div class="chart-wrapper bar-chart">
-        <h3 class="chart-title">
-          网络攻击监测状况-近12个月统计柱状图
-        </h3>
-        <div class="chart-container">
-          <canvas id="yearlyBarChart"></canvas>
-        </div>
+  <div class="attack-stats-container">
+    <div class="chart-wrapper pie-chart">
+      <h3 class="chart-title">网络攻击监测状况-月统计饼图</h3>
+      <div class="chart-container">
+        <canvas id="monthlyPieChart"></canvas>
       </div>
     </div>
-  </item-wrap>
+    <div class="chart-wrapper bar-chart">
+      <h3 class="chart-title">
+        网络攻击监测状况-近12个月统计柱状图
+      </h3>
+      <div class="chart-container">
+        <canvas id="yearlyBarChart"></canvas>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import axios from 'axios';
 import Chart from 'chart.js/dist/Chart.min.js';
-import ItemWrap from '@/components/item-wrap/item-wrap.vue';
 
 export default {
-  components: {
-    ItemWrap
-  },
   data() {
     return {
       monthlyData: null,

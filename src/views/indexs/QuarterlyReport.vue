@@ -1,53 +1,47 @@
 <template>
-  <item-wrap :title="`${selectedYear}年信息安全季报统计`">
-    <div class="report-container">
-      <!-- 年份选择按钮 -->
-      <div class="year-select-btn" @click="toggleYearList">
-        {{ selectedYear }}年
-        <i :class="['arrow-icon', { 'rotate': yearListVisible }]"></i>
-      </div>
-      <!-- 年份下拉列表 -->
-      <ul class="year-list" v-show="yearListVisible">
-        <li 
-          v-for="year in years" 
-          :key="year" 
-          @click="selectYear(year)"
-          :class="{ 'active': year === selectedYear }"
-        >
-          {{ year }}年
-        </li>
-      </ul>
-
-      <!-- 加载状态 -->
-      <div v-if="loading" class="status loading">
-        <div class="spinner"></div>
-        <p>加载数据中...</p>
-      </div>
-      
-      <!-- 错误状态 -->
-      <div v-else-if="error" class="status error">
-        <p>数据加载失败: {{ errorMsg }}</p>
-        <button @click="fetchQuarterlyData">重试</button>
-      </div>
-      
-      <!-- 图表容器 -->
-      <div v-else class="chart-container">
-        <canvas ref="chart"></canvas>
-      </div>
+  <div class="report-container">
+    <!-- 年份选择按钮 -->
+    <div class="year-select-btn" @click="toggleYearList">
+      {{ selectedYear }}年
+      <i :class="['arrow-icon', { 'rotate': yearListVisible }]"></i>
     </div>
-  </item-wrap>
+    <!-- 年份下拉列表 -->
+    <ul class="year-list" v-show="yearListVisible">
+      <li 
+        v-for="year in years" 
+        :key="year" 
+        @click="selectYear(year)"
+        :class="{ 'active': year === selectedYear }"
+      >
+        {{ year }}年
+      </li>
+    </ul>
+
+    <!-- 加载状态 -->
+    <div v-if="loading" class="status loading">
+      <div class="spinner"></div>
+      <p>加载数据中...</p>
+    </div>
+    
+    <!-- 错误状态 -->
+    <div v-else-if="error" class="status error">
+      <p>数据加载失败: {{ errorMsg }}</p>
+      <button @click="fetchQuarterlyData">重试</button>
+    </div>
+    
+    <!-- 图表容器 -->
+    <div v-else class="chart-container">
+      <canvas ref="chart"></canvas>
+    </div>
+  </div>
 </template>
 
 <script>
-import ItemWrap from '@/components/item-wrap/item-wrap.vue';
 import { ref, onMounted, watch, nextTick } from 'vue';
 import Chart from 'chart.js';
 import axios from 'axios';
 
 export default {
-  components: {
-    ItemWrap
-  },
   setup() {
     // 基础数据 - 默认选中最近年份（数组最后一项）
     const years = [2023, 2024, 2025];
@@ -313,13 +307,5 @@ export default {
   to { transform: rotate(360deg); }
 }
 
-/* 兼容父组件样式 */
-:deep(.lr_titles) {
-  height: 100%;
-}
-
-:deep(.item_title_content) {
-  padding: 0;
-  height: 100%;
-}
+/* 移除原有的父组件样式兼容代码 */
 </style>
