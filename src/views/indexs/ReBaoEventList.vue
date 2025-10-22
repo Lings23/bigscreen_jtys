@@ -1,50 +1,41 @@
 <template>
-  <!-- 使用公共组件item-wrap包裹整个模块 -->
-  <item-wrap title="重保事件报送列表">
-    <div class="event-list-container">
-      <!-- 滚动内容区域 -->
-      <div 
-        class="scroll-container" 
-        ref="scrollContainer"
-        @mouseenter="pauseScroll"
-        @mouseleave="resumeScroll"
-      >
-        <div class="list-content" ref="listContent">
-          <div 
-            class="event-item" 
-            v-for="(item, index) in duplicatedList" 
-            :key="index"
-          >
-            <div class="event-rank">{{ (index % eventList.length) + 1 }}</div>
-            <div class="event-info">
-              <div class="info-row">
-                <span class="label">事件名称：</span>
-                <span class="value event-name">{{ item.name }}</span>
-              </div>
-              <div class="info-row">
-                <span class="label">参与单位：</span>
-                <span class="value unit-count">{{ item.unitCount }} 家</span>
-                
-                <span class="label time-label">起止时间：</span>
-                <span class="value time-value">{{ item.startTime }} 至 {{ item.endTime }}</span>
-              </div>
+  <!-- 移除item-wrap组件，保留内部内容结构 -->
+  <div class="event-list-container">
+    <!-- 滚动内容区域 -->
+    <div 
+      class="scroll-container" 
+      ref="scrollContainer"
+      @mouseenter="pauseScroll"
+      @mouseleave="resumeScroll"
+    >
+      <div class="list-content" ref="listContent">
+        <div 
+          class="event-item" 
+          v-for="(item, index) in duplicatedList" 
+          :key="index"
+        >
+          <div class="event-rank">{{ (index % eventList.length) + 1 }}</div>
+          <div class="event-info">
+            <div class="info-row">
+              <span class="label">事件名称：</span>
+              <span class="value event-name">{{ item.name }}</span>
+            </div>
+            <div class="info-row">
+              <span class="label">参与单位：</span>
+              <span class="value unit-count">{{ item.unitCount }} 家</span>
+              
+              <span class="label time-label">起止时间：</span>
+              <span class="value time-value">{{ item.startTime }} 至 {{ item.endTime }}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </item-wrap>
+  </div>
 </template>
 
 <script>
-// 根据实际路径引入item-wrap组件
-// 实际路径：D:\Users\86150\Desktop\tisec\new big screen\bigscreen_jtys-master\src\components\item-wrap\item-wrap.vue
-import ItemWrap from '@/components/item-wrap/item-wrap.vue';
-
 export default {
-  components: {
-    ItemWrap
-  },
   data() {
     return {
       eventList: [],
@@ -241,13 +232,5 @@ export default {
   .time-value {
     color: #ff7d7d;
   }
-}
-
-:deep(.lr_titles) {
-  height: 100%;
-}
-
-:deep(.item_title_content) {
-  padding: 0;
 }
 </style>
