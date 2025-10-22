@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- 由 Microsoft Visio, SVG Export 生成 red.svg 页-1 -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+		xmlns:v="http://schemas.microsoft.com/visio/2003/SVGExtensions/" width="1.03819in" height="2.17014in"
+		viewBox="0 0 74.7498 156.25" xml:space="preserve" color-interpolation-filters="sRGB" class="st9">
+	<v:documentProperties v:langID="2052" v:metric="true" v:viewMarkup="false"/>
+
+	<style type="text/css">
+	<![CDATA[
+		.st1 {fill:#ff00ff;fill-opacity:0;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:0;stroke-width:0.24}
+		.st2 {fill:url(#grad12-7);stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.72}
+		.st3 {fill:url(#grad0-13);stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.72}
+		.st4 {fill:url(#grad11-17);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.72}
+		.st5 {stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5}
+		.st6 {fill:url(#grad11-25);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.72}
+		.st7 {fill:url(#grad11-31);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.72}
+		.st8 {fill:none;stroke:#ffffff;stroke-linecap:round;stroke-linejoin:round;stroke-width:0.72}
+		.st9 {fill:none;fill-rule:evenodd;font-size:12px;overflow:visible;stroke-linecap:square;stroke-miterlimit:3}
+	]]>
+	</style>
+
+	<defs id="Patterns_And_Gradients">
+		<pattern id="grad12-7" x="0" y="0" width="1" height="1" patternContentUnits="objectBoundingBox">
+			<path d="M 0 0 L 0 1 L 1 1 z" style="fill:url(#grad0-8)"/>
+			<path d="M 0 0 L 1 0 L 1 1 z" style="fill:url(#grad0-9)"/>
+		</pattern>
+		<linearGradient id="grad0-8" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(90 0.5 0.5)">
+			<stop offset="0" stop-color="#ee0000" stop-opacity="1"/>
+			<stop offset="1" stop-color="#b30000" stop-opacity="1"/>
+		</linearGradient>
+		<linearGradient id="grad0-9" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(360 0.5 0.5)">
+			<stop offset="0" stop-color="#ee0000" stop-opacity="1"/>
+			<stop offset="1" stop-color="#b30000" stop-opacity="1"/>
+		</linearGradient>
+		<linearGradient id="grad0-13" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(270 0.5 0.5)">
+			<stop offset="0" stop-color="#ee0000" stop-opacity="1"/>
+			<stop offset="1" stop-color="#b30000" stop-opacity="1"/>
+		</linearGradient>
+		<pattern id="grad11-17" x="0" y="0" width="1" height="1" patternContentUnits="objectBoundingBox">
+			<path d="M 0 1 L 0 0 L 1 0 z" style="fill:url(#grad0-18)"/>
+			<path d="M 0 1 L 1 1 L 1 0 z" style="fill:url(#grad0-8)"/>
+		</pattern>
+		<linearGradient id="grad0-18" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(180 0.5 0.5)">
+			<stop offset="0" stop-color="#ee0000" stop-opacity="1"/>
+			<stop offset="1" stop-color="#b30000" stop-opacity="1"/>
+		</linearGradient>
+		<pattern id="grad11-25" x="0" y="0" width="1" height="1" patternContentUnits="objectBoundingBox">
+			<path d="M 0 1 L 0 0 L 1 0 z" style="fill:url(#grad0-26)"/>
+			<path d="M 0 1 L 1 1 L 1 0 z" style="fill:url(#grad0-27)"/>
+		</pattern>
+		<linearGradient id="grad0-26" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(180 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#ffffff" stop-opacity="1"/>
+		</linearGradient>
+		<linearGradient id="grad0-27" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(90 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#ffffff" stop-opacity="1"/>
+		</linearGradient>
+		<pattern id="grad11-31" x="0" y="0" width="1" height="1" patternContentUnits="objectBoundingBox">
+			<path d="M 0 1 L 0 0 L 1 0 z" style="fill:url(#grad0-32)"/>
+			<path d="M 0 1 L 1 1 L 1 0 z" style="fill:url(#grad0-33)"/>
+		</pattern>
+		<linearGradient id="grad0-32" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(180 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#99ccff" stop-opacity="1"/>
+		</linearGradient>
+		<linearGradient id="grad0-33" x1="0" y1="0" x2="1" y2="0" gradientTransform="rotate(90 0.5 0.5)">
+			<stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+			<stop offset="1" stop-color="#99ccff" stop-opacity="1"/>
+		</linearGradient>
+	</defs>
+	<g v:mID="0" v:index="1" v:groupContext="foregroundPage">
+		<title>页-1</title>
+		<v:pageProperties v:drawingScale="0.0393701" v:pageScale="0.0393701" v:drawingUnits="24" v:shadowOffsetX="8.50394"
+				v:shadowOffsetY="-8.50394"/>
+		<g id="group1-1" transform="translate(0.75,-56)" v:mID="1" v:groupContext="group">
+			<v:custProps>
+				<v:cp v:nameU="ShapeClass" v:lbl="ShapeClass" v:type="0" v:invis="true" v:ask="false" v:langID="2052"
+						v:val="VT4(设备)"/>
+				<v:cp v:nameU="ShapeType" v:lbl="ShapeType" v:type="0" v:invis="true" v:ask="false" v:langID="2052" v:val="VT4(设备)"/>
+				<v:cp v:nameU="SubShapeType" v:lbl="SubShapeType" v:type="0" v:invis="true" v:ask="false" v:langID="2052"
+						v:val="VT4(探测器)"/>
+				<v:cp v:nameU="Manufacturer" v:lbl="制造商" v:type="0" v:sortKey="Equipment" v:invis="false" v:ask="false"
+						v:langID="2052"/>
+				<v:cp v:nameU="ProductNumber" v:lbl="产品编号" v:type="0" v:sortKey="Equipment" v:invis="false" v:ask="false"
+						v:langID="2052"/>
+				<v:cp v:nameU="PartNumber" v:lbl="部件号" v:type="0" v:sortKey="Equipment" v:invis="false" v:ask="false"
+						v:langID="2052"/>
+				<v:cp v:nameU="ProductDescription" v:lbl="产品说明" v:type="0" v:sortKey="Equipment" v:invis="false" v:ask="false"
+						v:langID="2052"/>
+				<v:cp v:nameU="AssetNumber" v:lbl="资产号" v:type="0" v:sortKey="Asset" v:invis="false" v:ask="false" v:langID="2052"/>
+				<v:cp v:nameU="SerialNumber" v:lbl="序列号" v:type="0" v:sortKey="Asset" v:invis="false" v:ask="false" v:langID="2052"/>
+				<v:cp v:nameU="Location" v:lbl="位置" v:type="0" v:sortKey="Asset" v:invis="false" v:ask="false" v:langID="2052"/>
+				<v:cp v:nameU="Building" v:lbl="建筑物" v:type="0" v:sortKey="Asset" v:invis="false" v:ask="false" v:langID="2052"/>
+				<v:cp v:nameU="Room" v:lbl="房间" v:type="0" v:sortKey="Asset" v:invis="false" v:ask="false" v:langID="2052"/>
+				<v:cp v:nameU="NetworkName" v:lbl="网络名称" v:type="0" v:sortKey="Network" v:invis="false" v:ask="false"
+						v:langID="2052"/>
+				<v:cp v:nameU="IPAddress" v:lbl="IP 地址" v:type="0" v:sortKey="Network" v:invis="false" v:ask="false"
+						v:langID="2052"/>
+				<v:cp v:nameU="SubnetMask" v:lbl="子网掩码" v:type="0" v:sortKey="Network" v:invis="false" v:ask="false"
+						v:langID="2052"/>
+				<v:cp v:nameU="AdminInterface" v:lbl="管理接口" v:type="0" v:sortKey="Network" v:invis="false" v:ask="false"
+						v:langID="2052"/>
+				<v:cp v:nameU="NumberofPorts" v:lbl="端口数目" v:type="0" v:sortKey="Network" v:invis="false" v:ask="false"
+						v:langID="2052"/>
+				<v:cp v:nameU="MACAddress" v:lbl="MAC 地址" v:type="0" v:sortKey="Network" v:invis="false" v:ask="false"
+						v:langID="2052"/>
+				<v:cp v:nameU="CommunityString" v:lbl="团体字符串" v:type="0" v:sortKey="Network" v:invis="false" v:ask="false"
+						v:langID="2052"/>
+				<v:cp v:nameU="NetworkDescription" v:lbl="网络说明" v:type="0" v:sortKey="Network" v:invis="false" v:ask="false"
+						v:langID="2052"/>
+			</v:custProps>
+			<v:userDefs>
+				<v:ud v:nameU="HasText" v:val="VT0(0):5"/>
+				<v:ud v:nameU="ShapeClass" v:val="VT0(5):26"/>
+				<v:ud v:nameU="ShapeType" v:val="VT0(8):26"/>
+				<v:ud v:nameU="SubShapeType" v:val="VT0(55):26"/>
+				<v:ud v:nameU="visLegendShape" v:val="VT0(2):26"/>
+				<v:ud v:nameU="SolSH" v:val="VT15({BF0433D9-CD73-4EB5-8390-8653BE590246}):41"/>
+				<v:ud v:nameU="visVersion" v:prompt="" v:val="VT0(15):26"/>
+			</v:userDefs>
+			<title>探测器.1340</title>
+			<g id="shape2-2" v:mID="2" v:groupContext="shape">
+				<title>工作表.2</title>
+				<path d="M48.83 156.25 L73.25 141.89 L73.25 85.47 L24.42 56.75 L0 71.11 L0 127.53 L48.83 156.25 Z" class="st1"/>
+			</g>
+			<g id="shape3-4" v:mID="3" v:groupContext="shape" transform="translate(48.8332,-5.11591E-13)">
+				<title>工作表.3</title>
+				<path d="M0 99.83 L0 156.25 L24.42 141.89 L24.42 85.47 L0 99.83 Z" class="st2"/>
+			</g>
+			<g id="shape4-10" v:mID="4" v:groupContext="shape" transform="translate(0,-56.4152)">
+				<title>工作表.4</title>
+				<path d="M0 127.53 L48.83 156.25 L73.25 141.89 L24.42 113.17 L0 127.53 Z" class="st3"/>
+			</g>
+			<g id="shape5-14" v:mID="5" v:groupContext="shape">
+				<title>工作表.5</title>
+				<path d="M0 127.53 L48.83 156.25 L48.83 99.83 L0 71.11 L0 127.53 Z" class="st4"/>
+			</g>
+			<g id="shape6-19" v:mID="6" v:groupContext="shape">
+				<title>工作表.6</title>
+				<path d="M0 71.11 L0 127.53 L48.83 156.25 L73.25 141.89 L73.25 85.47 L24.42 56.75 L0 71.11" class="st5"/>
+			</g>
+			<g id="shape7-22" v:mID="7" v:groupContext="shape" transform="translate(5.81626,-24.9576)">
+				<title>工作表.7</title>
+				<path d="M13.95 145.01 A20.4253 13.0437 -118.97 1 0 12.65 142.71 L0.04 150.12 A1.93898 1.97538 -180 0 0 1.35 152.42
+							 L13.95 145.01 Z" class="st6"/>
+			</g>
+			<g id="shape8-28" v:mID="8" v:groupContext="shape" transform="translate(18.4235,-28.2266)">
+				<title>工作表.8</title>
+				<path d="M20.26 155.52 A17.1572 9.81056 61.02 1 1 3.64 125.5 A17.1572 9.81056 61.02 1 1 20.26 155.52 Z" class="st7"/>
+			</g>
+			<g id="shape9-34" v:mID="9" v:groupContext="shape" transform="translate(23.4399,-32.8249)">
+				<title>工作表.9</title>
+				<path d="M0 148.97 L12.37 156.25 L12.37 141.96 L0 134.68 L0 148.97 Z" class="st8"/>
+			</g>
+		</g>
+	</g>
+</svg>
