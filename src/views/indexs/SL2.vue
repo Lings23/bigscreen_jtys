@@ -74,7 +74,7 @@ export default {
   methods: {
     async fetchEventList() {
       try {
-        const res = await this.$authFetch('/api/stat/event');
+        const res = await this.$authFetch('/api/stat/event/all');
         const data = await res.json();
         this.list = (data || []).map(item => ({
           systemName: item.systemName,

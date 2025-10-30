@@ -94,7 +94,7 @@ export default {
     async fetchData() {
       try {
         // 获取异常事件数据
-        const abnormalRes = await this.$authFetch('/api/stat/abnormal');
+        const abnormalRes = await this.$authFetch('/api/stat/abnormal/all');
         const abnormalData = await abnormalRes.json();
         const latestAbnormal = this.getLatestData(abnormalData);
         if (latestAbnormal) {

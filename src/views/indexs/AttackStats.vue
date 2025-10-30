@@ -45,8 +45,22 @@ export default {
         const monthlyRes = await axios.get('/api/attack/monthly');
         const yearlyRes = await axios.get('/api/attack/yearly');
         
-        this.monthlyData = monthlyRes.data.data;
-        this.yearlyData = yearlyRes.data.data;
+        console.log('月度攻击原始响应:', monthlyRes);
+        console.log('月度攻击类型:', typeof monthlyRes);
+        console.log('年度攻击原始响应:', yearlyRes);
+        console.log('年度政击类型:', typeof yearlyRes);
+        
+        // 注意: axios响应拦截器已经返回response.data，所以这里的monthlyRes就是原始的response.data
+        this.monthlyData = monthlyRes.data;
+        this.yearlyData = yearlyRes.data;
+        
+        console.log('月度数据最终:', this.monthlyData);
+        console.log('年度数据最终:', this.yearlyData);
+        
+        if (!this.monthlyData || !this.yearlyData) {
+          console.error('数据为空!');
+          return;
+        }
         
         this.initCharts();
       } catch (error) {

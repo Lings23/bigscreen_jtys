@@ -69,7 +69,7 @@ export default {
         const { current, last } = this.getQuarterRange();
 
         // 获取漏洞统计数据（本季度）
-        const vulnRes = await this.$authFetch('/api/stat/vuln-stat');
+        const vulnRes = await this.$authFetch('/api/stat/vuln-stat/all');
         const vulnData = await vulnRes.json();
         const currentVulnData = vulnData.filter(item => 
           this.isInQuarter(item.foundTime, current.year, current.quarter)

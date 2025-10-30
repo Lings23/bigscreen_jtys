@@ -25,9 +25,9 @@ module.exports = {
       }
     }
   },
-  publicPath: './',
-  outputDir: process.env.VUE_APP_outputDir || 'dist',
-  assetsDir: 'static',
+  publicPath: '/screen/',
+  outputDir: 'dist',
+  assetsDir: '',
   filenameHashing: true,
   lintOnSave: false,
   runtimeCompiler: false,

@@ -67,10 +67,22 @@ export default {
           params: { year: selectedYear.value }
         });
 
-        if (response.data && response.data.success && response.data.data) {
-          quarterlyData.value = response.data.data;
+        console.log('季报原始响应:', response);
+        console.log('季报响应类型:', typeof response);
+        console.log('季报success:', response.success);
+        console.log('季报data字段:', response.data);
+
+        // 注意: axios响应拦截器已经返回response.data，所以这里的response就是原始的response.data
+        if (response.success ) {
+          quarterlyData.value = response.data;
+          console.log('季报最终数据:', quarterlyData.value);
           nextTick(() => initChart());
         } else {
+          console.error('数据验证失败:', {
+            hasResponse: !!response,
+            success: response.success,
+            hasDataField: !!response.data
+          });
           throw new Error('数据格式错误');
         }
       } catch (err) {

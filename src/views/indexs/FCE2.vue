@@ -25,6 +25,8 @@
 import * as echarts from 'echarts'
 import FlylineChartEnhanced from '@/components/flyline-chart-enhanced.vue'
 import emitter from '@/utils/eventBus.js'
+import worldMapData from '@/assets/map/world.json'
+import chinaMapData from '@/assets/map/china.json'
 
 export default {
   name: 'FlylineWorldMapEnhanced',
@@ -126,7 +128,7 @@ export default {
     },
     async fetchFlylineData(mapName) {
       try {
-        const res = await this.$authFetch('/api/stat/attack');
+        const res = await this.$authFetch('/api/stat/attack/all');
         const data = await res.json();
         // 根据地图类型筛选国内/国外
         const isWorldMap = mapName === 'world';
@@ -172,9 +174,8 @@ export default {
       emitter.emit('mapChanged', mapName)
       this.mapReady = false
       try {
-        const res = await this.$authFetch(`/map/${mapName}.json`)
-        if (!res.ok) throw new Error('地图加载失败: ' + res.status)
-        const geoJson = await res.json()
+        // 使用 import 的地图数据
+        const geoJson = mapName === 'world' ? worldMapData : chinaMapData
         echarts.registerMap(mapName, geoJson)
         this.config.map.mapName = mapName
         this.mapReady = true

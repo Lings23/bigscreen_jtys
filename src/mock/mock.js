@@ -262,36 +262,41 @@ Mock.mock(new RegExp('rebang/eventList'), 'get', rebangEventList)
 function quarterlySecurityReport(options) {
   // 获取请求中的年份参数（如?year=2025）
   const params = parameteUrl(options.url);
-  const targetYear = params.year || 2025; // 默认返回2025年数据
+  const targetYear = parseInt(params.year) || 2025; // 默认返回2025年数据
 
-  // 生成对应年份的季度数据，保持与组件原格式一致
-  const reportData = Mock.mock({
+  // 根据年份确定数据范围
+  const checkMin = targetYear === 2023 ? 10 : (targetYear === 2024 ? 15 : 18);
+  const checkMax = targetYear === 2023 ? 20 : (targetYear === 2024 ? 25 : 30);
+  const trainMin = targetYear === 2023 ? 8 : (targetYear === 2024 ? 10 : 12);
+  const trainMax = targetYear === 2023 ? 15 : (targetYear === 2024 ? 18 : 22);
+  const buildMin = targetYear === 2023 ? 5 : (targetYear === 2024 ? 7 : 9);
+  const buildMax = targetYear === 2023 ? 10 : (targetYear === 2024 ? 12 : 15);
+
+  // 直接生成数组数据，不使用Mock.js模板语法
+  const reportData = {
     success: true,
     data: {
       季度: ['Q1', 'Q2', 'Q3', 'Q4'],
-      // 信息安全检查数量：按年份递增，每季度波动
-      '信息安全检查数量|4': [
-        () => Mock.Random.integer(
-          targetYear === 2023 ? 10 : (targetYear === 2024 ? 15 : 18),
-          targetYear === 2023 ? 20 : (targetYear === 2024 ? 25 : 30)
-        )
+      信息安全检查数量: [
+        Mock.Random.integer(checkMin, checkMax),
+        Mock.Random.integer(checkMin, checkMax),
+        Mock.Random.integer(checkMin, checkMax),
+        Mock.Random.integer(checkMin, checkMax)
       ],
-      // 信息安全培训数量：同检查数量递增逻辑
-      '信息安全培训数量|4': [
-        () => Mock.Random.integer(
-          targetYear === 2023 ? 8 : (targetYear === 2024 ? 10 : 12),
-          targetYear === 2023 ? 15 : (targetYear === 2024 ? 18 : 22)
-        )
+      信息安全培训数量: [
+        Mock.Random.integer(trainMin, trainMax),
+        Mock.Random.integer(trainMin, trainMax),
+        Mock.Random.integer(trainMin, trainMax),
+        Mock.Random.integer(trainMin, trainMax)
       ],
-      // 信息系统建设整改：同递增逻辑
-      '信息系统建设整改|4': [
-        () => Mock.Random.integer(
-          targetYear === 2023 ? 5 : (targetYear === 2024 ? 7 : 9),
-          targetYear === 2023 ? 10 : (targetYear === 2024 ? 12 : 15)
-        )
+      信息系统建设整改: [
+        Mock.Random.integer(buildMin, buildMax),
+        Mock.Random.integer(buildMin, buildMax),
+        Mock.Random.integer(buildMin, buildMax),
+        Mock.Random.integer(buildMin, buildMax)
       ]
     }
-  });
+  };
 
   return reportData;
 }

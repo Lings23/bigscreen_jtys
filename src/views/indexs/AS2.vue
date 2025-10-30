@@ -24,7 +24,7 @@ export default {
   methods: {
     async fetchData() {
       try {
-        const res = await this.$authFetch('/api/stat/asset');
+        const res = await this.$authFetch('/api/stat/asset/all');
         const data = await res.json();
         // 只取statDate最新的一条
         let d = {};

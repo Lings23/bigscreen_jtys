@@ -47,7 +47,7 @@ export default {
   methods: {
     async fetchAlarmData() {
       try {
-        const res = await this.$authFetch("/api/stat/alarm");
+        const res = await this.$authFetch("/api/stat/alarm/all");
         const data = await res.json();
         this.alarmData = data;
       } catch (e) {

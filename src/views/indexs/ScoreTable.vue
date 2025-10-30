@@ -50,7 +50,7 @@ export default {
   methods: {
     async fetchRiskList() {
       try {
-        const res = await this.$authFetch('/api/stat/risk');
+        const res = await this.$authFetch('/api/stat/risk/all');
         const data = await res.json();
         this.riskList = (data || []).map(item => ({
           systemName: item.systemName,

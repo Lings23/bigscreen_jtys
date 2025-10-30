@@ -108,7 +108,7 @@ export default {
         async getData() {
             try {
                 this.pageflag = true;
-                const res = await this.$authFetch('/api/stat/device');
+                const res = await this.$authFetch('/api/stat/device/all');
                 const data = await res.json();
                 const latestData = this.getLatestData(data);
                 

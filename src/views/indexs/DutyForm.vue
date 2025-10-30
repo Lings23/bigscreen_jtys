@@ -45,7 +45,7 @@ export default {
   methods: {
     async fetchDutyData() {
       try {
-        const res = await this.$authFetch('/api/stat/duty');
+        const res = await this.$authFetch('/api/stat/duty/all');
         const data = await res.json();
         this.dutyList = (data || []).map(item => ({
           department: item.orgName,

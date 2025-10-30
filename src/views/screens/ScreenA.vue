@@ -5,6 +5,8 @@
       <div class="left-column">
         <item-wrap class="module module-large">
           <!-- 原有大模块内容 -->
+          <Alarm3D />
+
         </item-wrap>
         <item-wrap class="module module-medium" title="恶意IP攻击列表">
           <!-- 新增攻击统计组件 -->
@@ -14,7 +16,8 @@
       
       <!-- 右侧列 -->
       <div class="right-column">
-        <item-wrap class="module module-right-1">
+        <item-wrap class="module module-right-1" title="效率分析">
+          <Efficiency />
           <!-- 其他组件内容 -->
         </item-wrap>
         <!-- 右侧第一个模块：重保事件报送列表 -->
@@ -39,6 +42,8 @@ import QuarterlyReport from '../indexs/QuarterlyReport.vue';
 import AttackStats from '../indexs/AttackStats.vue';
 // 导入item-wrap组件
 import ItemWrap from '@/components/item-wrap/item-wrap.vue';
+import Alarm3D from "./Alarm3D.vue";
+import Efficiency from "./EfficiencyAnalysis.vue";
 import axios from 'axios';
 
 
@@ -47,6 +52,8 @@ export default {
     ReBaoEventList,
     QuarterlyReport,
     AttackStats,
+    Alarm3D,
+    Efficiency,
     ItemWrap  // 注册item-wrap组件
   },
   created() {
@@ -101,8 +108,8 @@ html, body, #app {
 .main-layout {
   flex: 1;
   display: flex;
-  gap: 15px;
-  padding: 15px;
+  gap: 10px;
+  padding: 10px;
   box-sizing: border-box;
   overflow: hidden; /* 防止布局溢出 */
 }
@@ -111,7 +118,7 @@ html, body, #app {
   flex: 65;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
   overflow: hidden;
 }
 
@@ -119,7 +126,7 @@ html, body, #app {
   flex: 35;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
   overflow: hidden;
 }
 
@@ -139,9 +146,9 @@ html, body, #app {
 .module-medium { flex: 4; }
 
 /* 右侧三个模块的高度控制 - 使用flex比例 */
-.module-right-1 { flex: 1; }
+.module-right-1 { flex: 1.5; }
 .module-right-2 { flex: 2; }
-.module-right-3 { flex: 3; }
+.module-right-3 { flex: 2.5; }
 
 /* 确保组件内部内容也能适应容器 */
 ::v-deep .module > * {

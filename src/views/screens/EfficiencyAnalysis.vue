@@ -23,7 +23,7 @@
             <span class="stat-value">{{ currentUnitStats.avgResponseTime }}</span>
           </div>
           <div class="stat-item">
-            <span class="stat-label">同比上月效率提升率：</span>
+            <span class="stat-label">同比上月效率提升：</span>
             <span class="stat-value" :class="{ 'positive': currentUnitStats.efficiencyImprovement > 0, 'negative': currentUnitStats.efficiencyImprovement < 0 }">{{ currentUnitStats.efficiencyImprovement > 0 ? '+' : '' }}{{ currentUnitStats.efficiencyImprovement }}%</span>
           </div>
         </div>
@@ -107,10 +107,10 @@
           title: {
             text: '半年内漏洞处置效率评分',
             left: 'center',
-            top: 10,
+            top: -2,
             textStyle: {
-              color: '#fff',
-              fontSize: 16,
+              color: '#ff035b',
+              fontSize: 20,
               fontWeight: 'bold'
             }
           },
@@ -118,7 +118,7 @@
             type: 'gauge',
             axisLine: {
               lineStyle: {
-                width: 10,
+                width: 8,
                 color: [
                   [0.3, 'red'],
                   [0.7, '#FFD700'],
@@ -127,8 +127,8 @@
               }
             },
             pointer: { itemStyle: { color: 'auto' } },
-            axisTick: { distance: -10, length: 10, lineStyle: { width: 4, color: '#fff' } },
-            splitLine: { distance: -10, length: 10, lineStyle: { width: 2, color: '#fff' } },
+            axisTick: { distance: -8, length: 8, lineStyle: { width: 3, color: '#fff' } },
+            splitLine: { distance: -10, length: 8, lineStyle: { width: 2, color: '#fff' } },
             axisLabel: { distance: 20, fontSize: 12, color: '#fff' },
             detail: { valueAnimation: true, fontSize: 20, color: '#fff' },
             data: [{ value: score }]
@@ -161,11 +161,17 @@
     align-items: flex-start;
     justify-content: space-between;
     color: #fff;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    box-sizing: border-box;
+    overflow: hidden;
   }
   
   .chart {
-    width: 350px;
-    height: 350px;
+    width: 300px;
+    height: 220px;
+
   }
   
   .info-panel {
@@ -174,10 +180,10 @@
   }
   
   .dropdown {
-    margin-top: 30px;
+    margin-top: 2px;
     width: 150px;
-    padding: 8px;
-    margin-bottom: 20px;
+    padding: 6px;
+    margin-bottom: 4px;
     background-color: rgba(255, 255, 255, 0.1);
     color: #fff;
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -194,7 +200,7 @@
   .stats {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 8px;
   }
   
   .stat-item {
@@ -212,7 +218,7 @@
   }
   
   .stat-label {
-    font-size: 16px;
+    font-size: 15px;
     color: rgba(255, 255, 255, 0.85);
     font-weight: 450;
   }

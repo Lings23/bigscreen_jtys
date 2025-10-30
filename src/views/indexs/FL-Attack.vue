@@ -52,7 +52,7 @@ export default {
     async updateAttackList(){
       try {
         // 1. 获取攻击数据
-        const attackRes = await this.$authFetch('/api/stat/attack');
+        const attackRes = await this.$authFetch('/api/stat/attack/all');
         const attackData = await attackRes.json();
         const isWorldMap = this.mapName === 'world';
         const filteredAttacks = (attackData || []).filter(item => 

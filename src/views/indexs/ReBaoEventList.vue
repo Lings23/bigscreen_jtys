@@ -2,17 +2,17 @@
   <!-- 移除item-wrap组件，保留内部内容结构 -->
   <div class="event-list-container">
     <!-- 滚动内容区域 -->
-    <div 
-      class="scroll-container" 
-      ref="scrollContainer"
-      @mouseenter="pauseScroll"
-      @mouseleave="resumeScroll"
+    <div
+        class="scroll-container"
+        ref="scrollContainer"
+        @mouseenter="pauseScroll"
+        @mouseleave="resumeScroll"
     >
       <div class="list-content" ref="listContent">
-        <div 
-          class="event-item" 
-          v-for="(item, index) in duplicatedList" 
-          :key="index"
+        <div
+            class="event-item"
+            v-for="(item, index) in duplicatedList"
+            :key="index"
         >
           <div class="event-rank">{{ (index % eventList.length) + 1 }}</div>
           <div class="event-info">
@@ -23,7 +23,7 @@
             <div class="info-row">
               <span class="label">参与单位：</span>
               <span class="value unit-count">{{ item.unitCount }} 家</span>
-              
+
               <span class="label time-label">起止时间：</span>
               <span class="value time-value">{{ item.startTime }} 至 {{ item.endTime }}</span>
             </div>
@@ -42,23 +42,28 @@ export default {
       duplicatedList: [],
       scrollTimer: null,
       scrollSpeed: 1,
-      scrollInterval: 40
+      scrollInterval: 40,
+      resizeObserver: null
     };
   },
   async mounted() {
     this.$nextTick(async () => {
       await this.fetchEventList();
-      
+
       if (this.eventList.length > 0) {
         this.duplicatedList = [...this.eventList, ...this.eventList];
         this.$nextTick(() => {
           this.startScroll();
+          this.initResizeObserver();
         });
       }
     });
   },
   beforeDestroy() {
     this.stopScroll();
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
   },
   methods: {
     async fetchEventList() {
@@ -96,24 +101,54 @@ export default {
         }
       ];
     },
+    initResizeObserver() {
+      const container = this.$refs.scrollContainer;
+      if (!container) return;
+
+      // 监听容器大小变化
+      this.resizeObserver = new ResizeObserver(entries => {
+        for (let entry of entries) {
+          this.handleContainerResize();
+        }
+      });
+
+      this.resizeObserver.observe(container);
+    },
+    handleContainerResize() {
+      // 暂停当前滚动
+      this.stopScroll();
+
+      // 重置滚动位置
+      const container = this.$refs.scrollContainer;
+      if (container) {
+        container.scrollTop = 0;
+      }
+
+      // 重新开始滚动（会自动判断是否需要滚动）
+      this.$nextTick(() => {
+        this.startScroll();
+      });
+    },
     startScroll() {
       const container = this.$refs.scrollContainer;
       const content = this.$refs.listContent;
-      
+
       if (!container || !content) return;
-      
+
+      // 只有内容高度大于容器高度时才滚动
       if (content.offsetHeight <= container.clientHeight) return;
-      
+
       this.stopScroll();
-      
+
       this.scrollTimer = setInterval(() => {
         if (!container.isConnected) {
           this.stopScroll();
           return;
         }
-        
+
         container.scrollTop += this.scrollSpeed;
-        
+
+        // 当滚动到一半时重置，实现无缝滚动
         if (container.scrollTop >= content.offsetHeight / 2) {
           container.scrollTop = 0;
         }
@@ -131,7 +166,7 @@ export default {
     resumeScroll() {
       const container = this.$refs.scrollContainer;
       const content = this.$refs.listContent;
-      
+
       if (container && content && content.offsetHeight > container.clientHeight) {
         this.startScroll();
       }
@@ -143,17 +178,17 @@ export default {
 <style scoped lang="scss">
 .event-list-container {
   width: 100%;
-  height: 100%;
+  height: 95%;
   background-color: rgba(10, 15, 40, 0.85);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   position: relative;
-  
-  background-image: 
-    radial-gradient(circle at 10% 20%, rgba(30, 80, 188, 0.1) 0%, transparent 20%),
-    radial-gradient(circle at 80% 60%, rgba(30, 80, 188, 0.1) 0%, transparent 20%);
+
+  background-image:
+      radial-gradient(circle at 10% 20%, rgba(30, 80, 188, 0.1) 0%, transparent 20%),
+      radial-gradient(circle at 80% 60%, rgba(30, 80, 188, 0.1) 0%, transparent 20%);
 }
 
 .scroll-container {
@@ -173,11 +208,11 @@ export default {
   border-bottom: 1px dashed rgba(0, 247, 255, 0.15);
   color: #fff;
   font-size: 16px;
-  
+
   &:last-child {
     border-bottom: none;
   }
-  
+
   &:hover {
     background-color: rgba(30, 80, 188, 0.1);
   }
@@ -197,38 +232,38 @@ export default {
 .event-info {
   flex: 1;
   width: 0;
-  
+
   .info-row {
     margin-bottom: 8px;
-    
+
     &:last-child {
       margin-bottom: 0;
     }
   }
-  
+
   .label {
     color: #8ca0c8;
     margin-right: 10px;
     font-size: 16px;
   }
-  
+
   .value {
     color: #e0e8ff;
     font-size: 16px;
   }
-  
+
   .event-name {
     color: #00f7ff;
   }
-  
+
   .time-label {
     margin-left: 25px;
   }
-  
+
   .unit-count {
     color: #47c8ff;
   }
-  
+
   .time-value {
     color: #ff7d7d;
   }

@@ -89,7 +89,7 @@ export default {
   methods: {
     async fetchVulnList() {
       try {
-        const res = await this.$authFetch('/api/stat/vuln-record');
+        const res = await this.$authFetch('/api/stat/vuln-record/all');
         const data = await res.json();
         this.list = (data || []).map(item => ({
           systemName: item.systemName,

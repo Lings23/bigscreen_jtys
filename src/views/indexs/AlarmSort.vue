@@ -48,7 +48,7 @@ export default {
     },
     async getData() {
       try {
-        const res = await this.$authFetch('/api/stat/region');
+        const res = await this.$authFetch('/api/stat/region/all');
         const data = await res.json();
         const typeMap = { overseas: 'foreign', domestic: 'domestic' };
         const filtered = (data || []).filter(item => item.regionType === typeMap[this.areaType]);
