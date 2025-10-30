@@ -87,7 +87,7 @@ export default {
         }
 
         // 获取修复情况数据（上季度）
-        const fixRes = await this.$authFetch('/api/stat/vuln-fix');
+        const fixRes = await this.$authFetch('/api/stat/vuln-fix/all');
         const fixData = await fixRes.json();
         const lastFixData = fixData.filter(item => 
           this.isInQuarter(item.statTime, last.year, last.quarter)

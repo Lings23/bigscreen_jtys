@@ -107,7 +107,7 @@ export default {
         }
 
         // 获取IP地理分布数据
-        const ipRes = await this.$authFetch('/api/stat/outbound-ip');
+        const ipRes = await this.$authFetch('/api/stat/outbound-ip/all');
         const ipData = await ipRes.json();
         
         // 按国内外分组
