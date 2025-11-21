@@ -11,6 +11,7 @@
     "@surbowl/world-geo-json-zh": "^2.1.5",
     "async-validator": "^4.2.5",
     "axios": "^0.24.0",
+    "chart.js": "^2.7.3",
     "echarts": "^5.6.0",
     "echarts-gl": "^2.0.9",
     "ejs": "^3.1.8",

@@ -301,28 +301,19 @@ function quarterlySecurityReport(options) {
   return reportData;
 }
 
-// 匹配“quarterlySecurityReport”相关的GET请求
 Mock.mock(new RegExp('/quarterlySecurityReport'), 'get', quarterlySecurityReport);
 
-function monthlyAttackStats() {
-  const attackTypes = ['恶意代码攻击', '漏洞攻击', '拒绝服务攻击', '扫描探测', '其他类型攻击'];
-  const counts = attackTypes.map(() => Random.integer(50, 500));
-  return {
-    success: true,
-    data: { types: attackTypes, counts: counts }
-  };
-}
-Mock.mock(/^\/api\/attack\/monthly$/, 'get', monthlyAttackStats);
-
-// 2. 近12个月攻击数据（柱状图用，精确匹配URL）
+// 保留原有所有mock逻辑，仅替换yearlyAttackStats函数
+// 当年网络攻击趋势（修改后）
 function yearlyAttackStats() {
+  // 生成近12个月标签（仅显示月份，如：10月、11月...9月）
   const months = [];
   const today = new Date();
   
-  // 生成近12个月标签（仅显示月份，如：11月、12月...10月）
   for (let i = 11; i >= 0; i--) {
-    const date = new Date(today.getFullYear(), today.getMonth() - i, 1);
-    months.push(`${date.getMonth() + 1}月`);
+    const date = new Date();
+    date.setMonth(today.getMonth() - i);
+    months.push(`${date.getMonth() + 1}月`); // 仅显示月份，不显示年份
   }
 
   // 攻击类型与前端保持一致
@@ -333,18 +324,17 @@ function yearlyAttackStats() {
     const data = [];
     // 前11个月随机数据（量级合理）
     for (let i = 0; i < 11; i++) {
-      data.push(Random.integer(30, 200));
+      data.push(Mock.Random.integer(30, 200));
     }
-    // 最后一个月数据（与饼图数据一致）
-    const latestData = monthlyAttackStats().data.counts[index];
+    // 最后一个月（当前月）数据单独生成，供饼图复用
+    const latestData = Mock.Random.integer(50, 300);
     data.push(latestData);
     return { label: type, data };
   });
   
   return {
     success: true,
-    data: { months: months, datasets: datasets }
+    data: { months, datasets }
   };
 }
-// 精确匹配URL，避免模糊匹配导致的冲突
-Mock.mock(/^\/api\/attack\/yearly$/, 'get', yearlyAttackStats);
+Mock.mock(new RegExp('/api/attack/yearly'), 'get', yearlyAttackStats);

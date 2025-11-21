@@ -304,47 +304,42 @@ function quarterlySecurityReport(options) {
 // 匹配“quarterlySecurityReport”相关的GET请求
 Mock.mock(new RegExp('/quarterlySecurityReport'), 'get', quarterlySecurityReport);
 
+// 当月网络攻击类型分布
 function monthlyAttackStats() {
-  const attackTypes = ['恶意代码攻击', '漏洞攻击', '拒绝服务攻击', '扫描探测', '其他类型攻击'];
-  const counts = attackTypes.map(() => Random.integer(50, 500));
+  const attackTypes = [
+    'SQL注入', 
+    'XSS攻击', 
+    'DDoS攻击', 
+    '暴力破解', 
+    '恶意代码'
+  ];
+  
+  // 生成随机攻击数量
+  const counts = attackTypes.map(() => Mock.Random.integer(50, 500));
+  
   return {
     success: true,
-    data: { types: attackTypes, counts: counts }
-  };
-}
-Mock.mock(/^\/api\/attack\/monthly$/, 'get', monthlyAttackStats);
-
-// 2. 近12个月攻击数据（柱状图用，精确匹配URL）
-function yearlyAttackStats() {
-  const months = [];
-  const today = new Date();
-  
-  // 生成近12个月标签（仅显示月份，如：11月、12月...10月）
-  for (let i = 11; i >= 0; i--) {
-    const date = new Date(today.getFullYear(), today.getMonth() - i, 1);
-    months.push(`${date.getMonth() + 1}月`);
-  }
-
-  // 攻击类型与前端保持一致
-  const attackTypes = ['恶意代码攻击', '漏洞攻击', '拒绝服务攻击', '扫描探测', '其他类型攻击'];
-  
-  // 生成数据集（最后一个月数据与饼图一致）
-  const datasets = attackTypes.map((type, index) => {
-    const data = [];
-    // 前11个月随机数据（量级合理）
-    for (let i = 0; i < 11; i++) {
-      data.push(Random.integer(30, 200));
+    data: {
+      types: attackTypes,
+      counts: counts
     }
-    // 最后一个月数据（与饼图数据一致）
-    const latestData = monthlyAttackStats().data.counts[index];
-    data.push(latestData);
-    return { label: type, data };
-  });
+  };
+}
+
+Mock.mock(new RegExp('/api/attack/monthly'), 'get', monthlyAttackStats);
+
+// 当年网络攻击趋势
+function yearlyAttackStats() {
+  const months = ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'];
+  const counts = months.map(() => Mock.Random.integer(300, 2000));
   
   return {
     success: true,
-    data: { months: months, datasets: datasets }
+    data: {
+      months: months,
+      counts: counts
+    }
   };
 }
-// 精确匹配URL，避免模糊匹配导致的冲突
-Mock.mock(/^\/api\/attack\/yearly$/, 'get', yearlyAttackStats);
+
+Mock.mock(new RegExp('/api/attack/yearly'), 'get', yearlyAttackStats);

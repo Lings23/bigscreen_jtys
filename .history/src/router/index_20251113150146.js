@@ -12,7 +12,7 @@ Vue.use(VueRouter);
 
 const routes = [  {
   path: '/',
-  redirect: '/screen-a',
+  redirect: '/index',
 },
 {
   path: '/home',

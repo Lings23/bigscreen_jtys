@@ -7,23 +7,24 @@
       </div>
     </div>
     <div class="chart-wrapper bar-chart">
-      <h3 class="chart-title">网络攻击监测状况-近12个月统计柱状图</h3>
+      <h3 class="chart-title">
+        网络攻击监测状况-近12个月统计柱状图
+      </h3>
       <div class="chart-container">
         <canvas id="yearlyBarChart"></canvas>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 import axios from 'axios';
 import Chart from 'chart.js/dist/Chart.min.js';
-
 export default {
   data() {
     return {
-      monthlyData: null, // 饼图数据（最新月份）
-      yearlyData: null,  // 柱状图数据（近12个月）
+      attackTypes: ['恶意代码攻击', '漏洞攻击', '拒绝服务攻击', '扫描探测', '其他类型攻击'],
+      yearlyData: null,
+      currentMonthData: null, // 最新一个月数据（饼图用）
       chartColors: [
         { bg: 'rgba(0, 247, 255, 0.7)', border: 'rgba(0, 247, 255, 1)' },
         { bg: 'rgba(71, 200, 255, 0.7)', border: 'rgba(71, 200, 255, 1)' },
@@ -31,7 +32,7 @@ export default {
         { bg: 'rgba(255, 125, 125, 0.7)', border: 'rgba(255, 125, 125, 1)' },
         { bg: 'rgba(125, 255, 125, 0.7)', border: 'rgba(125, 255, 125, 1)' }
       ],
-      pieChart: null
+      pieChart: null // 保留饼图实例存储
     };
   },
   mounted() {
@@ -40,78 +41,33 @@ export default {
   methods: {
     async fetchAttackData() {
       try {
-        // 只请求年度数据（月度数据从年度数据提取，避免401）
         const yearlyRes = await axios.get('/api/attack/yearly');
+        this.yearlyData = yearlyRes.data.data;
         
-        // 响应数据处理（适配axios拦截器返回格式）
-        if (yearlyRes.success !== undefined) {
-          this.yearlyData = yearlyRes.data; // 若拦截器已返回response.data
-        } else {
-          this.yearlyData = yearlyRes.data.data; // 原始响应格式
-        }
-        
-        // 验证数据结构
-        if (!this.yearlyData || !this.yearlyData.datasets || !this.yearlyData.months) {
-          throw new Error('年度数据结构错误');
-        }
-        
-        // 提取最新一个月数据作为饼图数据（确保一致性）
-        const attackTypes = this.yearlyData.datasets.map(item => item.label);
-        const currentMonthCounts = this.yearlyData.datasets.map(item => {
-          return item.data && item.data.length > 0 ? item.data[item.data.length - 1] : 0;
+        // 提取最新一个月数据（数组最后一项）
+        this.currentMonthData = this.attackTypes.map((_, index) => {
+          return this.yearlyData.datasets[index].data[this.yearlyData.datasets[index].data.length - 1];
         });
-        this.monthlyData = { types: attackTypes, counts: currentMonthCounts };
         
         this.initCharts();
       } catch (error) {
-        console.error('获取攻击数据失败:', error.message);
-        // 错误降级：使用默认数据
-        this.useFallbackData();
+        console.error('获取攻击数据失败:', error);
       }
     },
-
-    // 错误降级：生成默认数据避免页面空白
-    useFallbackData() {
-      const attackTypes = ['恶意代码攻击', '漏洞攻击', '拒绝服务攻击', '扫描探测', '其他类型攻击'];
-      const months = [];
-      const today = new Date();
-      
-      // 生成近12个月标签
-      for (let i = 11; i >= 0; i--) {
-        const date = new Date(today.getFullYear(), today.getMonth() - i, 1);
-        months.push(`${date.getMonth() + 1}月`);
-      }
-      
-      // 生成默认数据集
-      const datasets = attackTypes.map(type => {
-        const data = Array(12).fill(0).map(() => Math.floor(Math.random() * 150) + 30);
-        return { label: type, data };
-      });
-      
-      // 饼图默认数据（最后一个月）
-      const currentMonthCounts = datasets.map(item => item.data[item.data.length - 1]);
-      
-      this.yearlyData = { months, datasets };
-      this.monthlyData = { types: attackTypes, counts: currentMonthCounts };
-      
-      this.initCharts();
-    },
-
     initCharts() {
       this.initPieChart();
       this.initBarChart();
     },
-    
     initPieChart() {
       const ctx = document.getElementById('monthlyPieChart').getContext('2d');
-      const total = this.monthlyData.counts.reduce((sum, count) => sum + count, 0);
+      const total = this.currentMonthData.reduce((sum, count) => sum + count, 0);
       
       this.pieChart = new Chart(ctx, {
         type: 'pie',
         data: {
-          labels: this.monthlyData.types,
+          labels: this.attackTypes,
           datasets: [{
-            data: this.monthlyData.counts,
+            data: this.currentMonthData,
             backgroundColor: this.chartColors.map(color => color.bg),
             borderColor: this.chartColors.map(color => color.border),
             borderWidth: 1,
@@ -121,7 +77,7 @@ export default {
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          cutout: '0%',
+          cutout: '0%', // 保持完整饼图
           tooltips: {
             callbacks: {
               label: (tooltipItem, data) => {
@@ -142,17 +98,18 @@ export default {
               }
             }
           },
+          // 保留原有百分比绘制钩子
           animation: {
             onComplete: () => this.drawPercentageLabels()
           }
         }
       });
     },
-    
+    // 保留原有手动绘制百分比标签逻辑
     drawPercentageLabels() {
       const chart = this.pieChart;
       const ctx = chart.ctx;
-      const total = this.monthlyData.counts.reduce((sum, count) => sum + count, 0);
+      const total = this.currentMonthData.reduce((sum, count) => sum + count, 0);
       const width = chart.width;
       const height = chart.height;
       const centerX = width / 2;
@@ -181,24 +138,23 @@ export default {
         ctx.restore();
       });
     },
-    
     initBarChart() {
       const ctx = document.getElementById('yearlyBarChart').getContext('2d');
       
-      // 构建堆叠数据集（一个柱子5种颜色）
-      const datasets = this.yearlyData.datasets.map((item, index) => ({
-        label: item.label,
-        data: item.data,
+      // 构建堆叠数据集（单柱多色上下堆叠）
+      const datasets = this.attackTypes.map((type, index) => ({
+        label: type,
+        data: this.yearlyData.datasets[index].data,
         backgroundColor: this.chartColors[index].bg,
         borderColor: this.chartColors[index].border,
         borderWidth: 1,
-        stack: 'attack-group' // 同一堆叠组，确保单柱堆叠
+        stack: '攻击类型' // 同一堆叠组确保单柱堆叠
       }));
       
       new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: this.yearlyData.months, // 近12个月标签（仅显示月份）
+          labels: this.yearlyData.months, // 近12个月（仅显示月份）
           datasets: datasets
         },
         options: {
@@ -209,18 +165,14 @@ export default {
           scales: {
             y: {
               beginAtZero: true,
-              stacked: true, // 启用Y轴堆叠
+              stacked: true, // 启用Y轴堆叠（核心）
               grid: { color: 'rgba(255, 255, 255, 0.1)' },
               ticks: { color: 'rgba(255, 255, 255, 0.7)', precision: 0 }
             },
             x: {
-              stacked: true, // 启用X轴堆叠
+              stacked: true, // 启用X轴堆叠（核心）
               grid: { color: 'rgba(255, 255, 255, 0.1)' },
-              ticks: { 
-                color: 'rgba(255, 255, 255, 0.7)',
-                maxRotation: 0, // 标签不旋转
-                autoSkip: false // 强制显示12个标签
-              }
+              ticks: { color: 'rgba(255, 255, 255, 0.7)' }
             }
           },
           plugins: {
@@ -238,8 +190,8 @@ export default {
   }
 };
 </script>
-
 <style scoped>
+/* 完全保留原有样式，不做任何修改 */
 .attack-stats-container {
   display: flex;
   width: 100%;
@@ -249,14 +201,12 @@ export default {
   box-sizing: border-box;
   background-color: rgba(10, 15, 40, 0.5);
 }
-
 .chart-wrapper {
   flex: 1;
   display: flex;
   flex-direction: column;
   height: 100%;
 }
-
 .chart-title {
   margin: 0 0 15px 0;
   color: rgba(0, 247, 255, 0.9);
@@ -266,22 +216,18 @@ export default {
   padding-bottom: 5px;
   border-bottom: 1px solid rgba(0, 247, 255, 0.2);
 }
-
 .chart-container {
   flex: 1;
   position: relative;
   height: 0;
 }
-
 canvas {
   width: 100% !important;
   height: 100% !important;
 }
-
 :deep(.lr_titles) {
   height: 100%;
 }
-
 :deep(.item_title_content) {
   padding: 0;
   height: 100%;
